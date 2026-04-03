@@ -5,9 +5,8 @@ using namespace std;
 
 int N,M;
 vector<int> vec;
-bool isused[10];
 
-void func(int cnt) {
+void func(int cnt, int start) {
 
 	if (cnt == M) {
 		for (int i=0; i<M; i++) {
@@ -17,16 +16,10 @@ void func(int cnt) {
 		return;
 	}
 
-	for (int i=1; i<=N; i++) {
-		if (!isused[i]) {
-			isused[i] = true;
-			vec.push_back(i);
-
-			func(cnt+1);
-
-			vec.pop_back();
-			isused[i] = false;
-		}
+	for (int i=start; i<=N; i++) {
+		vec.push_back(i);
+		func(cnt+1, i+1);
+		vec.pop_back();
 	}
 }
 
@@ -35,7 +28,7 @@ int main() {
 	cin.tie(0);
 
 	if (!(cin >> N >> M)) return 0;
-	func(0);
+	func(0,1);
 
 	return 0;
 }
